@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds">
+
+    <!-- 设置控制台日志输出格式 -->
+    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+<!--            <pattern>-->
+<!--                %d - %msg%n-->
+<!--            </pattern>-->
+        </filter>
+        <encoder>
+            <Pattern>%date [%-5p] [%thread] %logger{60} [%file : %line] %msg%n</Pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 设置记录除ERROR日志的文件 -->
+    <appender name="fileInfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 过滤方式：匹配过滤，对匹配到的日志执行匹配策略 -->
+        <File>D:/log/springboot-logback.log</File>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 匹配级别 -->
+            <level>ERROR</level>
+            <!-- 匹配到的执行策略 -->
+            <onMatch>DENY</onMatch>
+            <!-- 不匹配的执行策略 -->
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>
+                %date [%-5p] [%thread] %logger{60} [%file : %line] %msg%n
+            </pattern>
+        </encoder>
+        <!-- 滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 路径 -->
+            <fileNamePattern>D:/log/springboot-logback.log.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 设置记录ERROR日志的文件 -->
+    <appender name="fileErrorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>D:/log/springboot-logback-error.log</File>
+        <!-- 过滤方式：门槛过滤，只记录ERROR级别以上的日志 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <encoder>
+            <pattern>
+                %date [%-5p] [%thread] %logger{60} [%file : %line] %msg%n
+            </pattern>
+        </encoder>
+        <!-- 滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 路径 -->
+            <fileNamePattern>D:/log/springboot-logback-error.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="com.leyou.item.mapper" level="DEBUG"/>
+
+    <root level="INFO">
+        <appender-ref ref="consoleLog"/>
+        <appender-ref ref="fileInfoLog"/>
+        <appender-ref ref="fileErrorLog"/>
+    </root>
+
+</configuration>
