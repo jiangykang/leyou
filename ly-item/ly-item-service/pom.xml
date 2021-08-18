@@ -19,6 +19,12 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.leyou.common</groupId>
+            <artifactId>ly-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
         <!--Eureka客户端-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
