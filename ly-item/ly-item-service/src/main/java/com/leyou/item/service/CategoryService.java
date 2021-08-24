@@ -18,4 +18,8 @@ public class CategoryService {
         category.setParentId(pid);
         return this.categoryMapper.select(category);
     }
+
+    public int addCategory(Category category) {
+        return categoryMapper.insert(category);
+    }
 }
