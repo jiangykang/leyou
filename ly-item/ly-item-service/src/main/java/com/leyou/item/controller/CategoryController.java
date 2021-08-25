@@ -42,4 +42,30 @@ public class CategoryController {
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    /*
+    编辑商品类目
+     */
+    @PostMapping(value = "update")
+    public ResponseEntity<Integer> updateCategory(@RequestBody Category category) {
+
+        int res = categoryService.updateById(category);
+        if (res == 1) {
+            return ResponseEntity.ok(res);
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /*
+    删除商品类目
+     */
+    @PostMapping(value = "delete")
+    public ResponseEntity<Integer> deleteCategory(@RequestBody Category category) {
+
+        int res = categoryService.deleteById(category);
+        if (res == 1) {
+            return ResponseEntity.ok(res);
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
