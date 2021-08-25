@@ -40,7 +40,16 @@ public class CategoryService {
 
     public int deleteById(Category category) {
 
-        //todo 查询父节点-是否父节点状态
+        Category sub = new Category();
+        sub.setParentId(category.getParentId());
+        List<Category> list = categoryMapper.select(sub);
+        if (list.size() <= 1) {
+            //父节点更新是否父节点标志
+            Category parent = new Category();
+            parent.setId(category.getParentId());
+            parent.setIsParent(false);
+            categoryMapper.updateByPrimaryKeySelective(parent);
+        }
         int i = categoryMapper.deleteByPrimaryKey(category);
         return i;
     }
