@@ -34,13 +34,13 @@ public class CategoryController {
     插入新的商品类目
      */
     @PostMapping(value = "add")
-    public ResponseEntity<Integer> addCategory(@RequestBody Category category) {
+    public ResponseEntity<Long> addCategory(@RequestBody Category category) {
 
-        int res = categoryService.addCategory(category);
-        if (res == 1) {
-            return ResponseEntity.ok(res);
+        Long res = categoryService.addCategory(category);
+        if (res == new Long(-1)) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.ok(res);
     }
 
     /*

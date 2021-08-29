@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 
 @Data
 @Table(name="tb_category")
@@ -20,5 +21,6 @@ public class Category {
     private Long parentId;
     private Boolean isParent;
     private Integer sort;
+    private Timestamp createStamp;
 
 }
