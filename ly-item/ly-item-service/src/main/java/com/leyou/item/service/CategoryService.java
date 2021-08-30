@@ -55,6 +55,7 @@ public class CategoryService {
 
     public int deleteById(Category category) {
 
+        int sort = category.getSort();
         Category sub = new Category();
         sub.setParentId(category.getParentId());
         List<Category> list = categoryMapper.select(sub);
@@ -64,6 +65,16 @@ public class CategoryService {
             parent.setId(category.getParentId());
             parent.setIsParent(false);
             categoryMapper.updateByPrimaryKeySelective(parent);
+        }
+        else { //更新兄弟节点的顺序字段
+            for (Category item:list
+                 ) {
+                int itemSort = item.getSort();
+                if(itemSort > sort) {
+                    item.setSort(itemSort-1);
+                    categoryMapper.updateByPrimaryKeySelective(item);
+                }
+            }
         }
         int i = categoryMapper.deleteByPrimaryKey(category);
         return i;
