@@ -63,7 +63,7 @@ public class UploadService {
             //2.2、上传
             StorePath storePath = this.storageClient.uploadFile(file.getInputStream(), file.getSize(), extension, null);
             //2.3、返回完整路径
-            return "http://image.leyou.com:8088/" + storePath.getFullPath();
+            return "http://image.leyou.com/" + storePath.getFullPath();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
