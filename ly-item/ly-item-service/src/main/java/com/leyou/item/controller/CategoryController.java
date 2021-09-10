@@ -68,4 +68,19 @@ public class CategoryController {
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    /**
+     *根据品牌id查询商品分类
+     * @author jiangyongkang
+     * @date 2021/9/10
+     * @return org.springframework.http.ResponseEntity<java.util.List<com.leyou.item.pojo.Category>>
+     */
+    @RequestMapping(value = "bid/{bid}")
+    public ResponseEntity<List<Category>> queryByBrandId(@PathVariable("bid") Long bid) {
+        List<Category> list = this.categoryService.queryByBrandId(bid);
+        if (list == null || list.size() < 1) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(list);
+    }
 }

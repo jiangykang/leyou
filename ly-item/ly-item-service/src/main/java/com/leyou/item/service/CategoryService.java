@@ -79,4 +79,8 @@ public class CategoryService {
         int i = categoryMapper.deleteByPrimaryKey(category);
         return i;
     }
+
+    public List<Category> queryByBrandId(Long bid) {
+        return this.categoryMapper.queryByBrandId(bid);
+    }
 }
