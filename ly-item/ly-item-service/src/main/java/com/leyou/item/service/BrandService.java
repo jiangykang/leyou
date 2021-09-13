@@ -50,4 +50,17 @@ public class BrandService {
             this.brandMapper.insertCategoryBrand(cid, brand.getId());
         }
     }
+
+    public void updateBrand(Brand brand, List<Long> cids) {
+        //更新品牌信息
+        this.brandMapper.updateByPrimaryKeySelective(brand);
+        //更新品牌和分类中间表
+        //1.删除原来的品牌和分类中间表
+        this.brandMapper.deleteCategoryBrand(brand.getId());
+        //2.新增品牌和分类中间表数据
+        for (Long cid : cids
+        ) {
+            this.brandMapper.insertCategoryBrand(cid, brand.getId());
+        }
+    }
 }
