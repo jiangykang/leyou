@@ -38,10 +38,18 @@ public class BrandController {
     }
 
     @PostMapping(value = "/update")
-    public ResponseEntity<Integer> updateBrand(Brand brand, @RequestParam("cids") List<Long> cids) {
+    public ResponseEntity<Void> updateBrand(Brand brand, @RequestParam("cids") List<Long> cids) {
 
         this.brandService.updateBrand(brand, cids);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PostMapping(value = "/delete")
+    public ResponseEntity<Integer> deleteBrand(@RequestBody Brand brand) {
+        int res = this.brandService.deleteBrand(brand);
+        if (res == 1)
+            return ResponseEntity.ok(res);
+        else
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

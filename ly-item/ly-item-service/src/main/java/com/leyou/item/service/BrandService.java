@@ -63,4 +63,14 @@ public class BrandService {
             this.brandMapper.insertCategoryBrand(cid, brand.getId());
         }
     }
+
+    public int deleteBrand(Brand brand) {
+
+        int var1 = this.brandMapper.deleteCategoryBrand(brand.getId());
+        int var2 = this.brandMapper.deleteByPrimaryKey(brand);
+        if (var1 > 0 && var2 > 0) {
+            return 1;
+        }
+        return 0;
+    }
 }
