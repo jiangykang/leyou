@@ -23,10 +23,13 @@ public class SpecificationService {
         t.setCid(cid);
         return this.specGroupMapper.select(t);}
 
-    public List<SpecParam> querySpecParams(Long gid) {
-        SpecParam t = new SpecParam();
-        t.setGroupId(gid);
-        return this.specParamMapper.select(t);
+    public List<SpecParam> querySpecParams(Long gid, Long cid, Boolean searching, Boolean generic) {
+        SpecParam param = new SpecParam();
+        param.setGroupId(gid);
+        param.setCid(cid);
+        param.setSearching(searching);
+        param.setGeneric(generic);
+        return this.specParamMapper.select(param);
     }
 
     public int addSpecParam(SpecParam specParam) {
@@ -43,6 +46,23 @@ public class SpecificationService {
 
     public int updateSpecParam(SpecParam specParam) {
         int res = this.specParamMapper.updateByPrimaryKeySelective(specParam);
+        return res;
+    }
+
+    public int addSpecGroups(SpecGroup specGroup) {
+        int res = this.specGroupMapper.insertSelective(specGroup);
+        return res;
+    }
+
+    public int deleteSpecGroups(Long id) {
+        SpecGroup specGroup = new SpecGroup();
+        specGroup.setId(id);
+        int res = this.specGroupMapper.deleteByPrimaryKey(specGroup);
+        return res;
+    }
+
+    public int updateSpecGroups(SpecGroup specGroup) {
+        int res = this.specGroupMapper.updateByPrimaryKeySelective(specGroup);
         return res;
     }
 }

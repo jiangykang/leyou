@@ -25,12 +25,42 @@ public class SpecificationController {
         return ResponseEntity.ok(list);
     }
 
+    @PostMapping("group")
+    public ResponseEntity<Integer> addSpecGroups(@RequestBody SpecGroup specGroup) {
+        int res = this.specificationService.addSpecGroups(specGroup);
+        if (res == 1){
+            return ResponseEntity.ok(1);
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @DeleteMapping("group/{id}")
+    public ResponseEntity<Integer> deleteSpecGroups(@PathVariable Long id) {
+        int res = this.specificationService.deleteSpecGroups(id);
+        if (res == 1){
+            return ResponseEntity.ok(1);
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @PutMapping("group")
+    public ResponseEntity<Integer> updateSpecGroups(@RequestBody SpecGroup specGroup) {
+        int res = this.specificationService.updateSpecGroups(specGroup);
+        if (res == 1){
+            return ResponseEntity.ok(1);
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @GetMapping("/params")
     public ResponseEntity<List<SpecParam>> querySpecParam(
-            @RequestParam(value = "gid", required = false) Long gid
+            @RequestParam(value = "gid", required = false) Long gid,
+            @RequestParam(value="cid", required = false) Long cid,
+            @RequestParam(value="searching", required = false) Boolean searching,
+            @RequestParam(value="generic", required = false) Boolean generic
     ) {
         List<SpecParam> list =
-                this.specificationService.querySpecParams(gid);
+                this.specificationService.querySpecParams(gid, cid, searching, generic);
         if (list == null || list.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
